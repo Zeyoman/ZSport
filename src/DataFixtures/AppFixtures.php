@@ -170,7 +170,7 @@ class AppFixtures extends Fixture
 
         // Création de l'historique de vidéos vues fictif
         $history = new Historique();
-
+        $history->setDate(new \DateTime());
         foreach ($video as $videos) {
             $history->addVideo($videos); // Associer chaque vidéo vue à l'historique
         }
