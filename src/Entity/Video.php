@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\VideoLevel;
 use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -63,12 +64,32 @@ class Video
     #[ORM\ManyToOne(inversedBy: 'Video')]
     private ?Historique $historique = null;
 
+    #[ORM\Column(enumType: VideoLevel::class)]
+    private ?VideoLevel $level = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $view = null;
+
+    /**
+     * @var Collection<int, Favoris>
+     */
+    #[ORM\ManyToMany(targetEntity: Favoris::class, mappedBy: 'videoId')]
+    private Collection $favoris;
+
+    /**
+     * @var Collection<int, Programme>
+     */
+    #[ORM\ManyToMany(targetEntity: Programme::class, mappedBy: 'videoId')]
+    private Collection $programmes;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->Note = new ArrayCollection();
         $this->Commentaire = new ArrayCollection();
         $this->Rapport = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -285,6 +306,84 @@ class Video
     public function setHistorique(?Historique $historique): static
     {
         $this->historique = $historique;
+
+        return $this;
+    }
+
+    public function getLevel(): ?VideoLevel
+    {
+        return $this->level;
+    }
+
+    public function setLevel(VideoLevel $level): static
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getView(): ?int
+    {
+        return $this->view;
+    }
+
+    public function setView(?int $view): static
+    {
+        $this->view = $view;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favoris>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(Favoris $favori): static
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris->add($favori);
+            $favori->addVideoId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Favoris $favori): static
+    {
+        if ($this->favoris->removeElement($favori)) {
+            $favori->removeVideoId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammes(): Collection
+    {
+        return $this->programmes;
+    }
+
+    public function addProgramme(Programme $programme): static
+    {
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+            $programme->addVideoId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): static
+    {
+        if ($this->programmes->removeElement($programme)) {
+            $programme->removeVideoId($this);
+        }
 
         return $this;
     }

@@ -30,9 +30,19 @@ class Abonnement
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'abonnement')]
     private Collection $users;
 
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
+
+    /**
+     * @var Collection<int, SubscriptionHistory>
+     */
+    #[ORM\ManyToMany(targetEntity: SubscriptionHistory::class, mappedBy: 'subscriptionId')]
+    private Collection $subscriptionHistories;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->subscriptionHistories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,6 +111,45 @@ class Abonnement
             if ($user->getAbonnement() === $this) {
                 $user->setAbonnement(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SubscriptionHistory>
+     */
+    public function getSubscriptionHistories(): Collection
+    {
+        return $this->subscriptionHistories;
+    }
+
+    public function addSubscriptionHistory(SubscriptionHistory $subscriptionHistory): static
+    {
+        if (!$this->subscriptionHistories->contains($subscriptionHistory)) {
+            $this->subscriptionHistories->add($subscriptionHistory);
+            $subscriptionHistory->addSubscriptionId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscriptionHistory(SubscriptionHistory $subscriptionHistory): static
+    {
+        if ($this->subscriptionHistories->removeElement($subscriptionHistory)) {
+            $subscriptionHistory->removeSubscriptionId($this);
         }
 
         return $this;
