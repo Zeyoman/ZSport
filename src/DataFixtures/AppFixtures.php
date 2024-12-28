@@ -60,11 +60,11 @@ class AppFixtures extends Fixture
 
         // Create a User
         $user = new User();
-        $user->setFistName('John')
+        $user->setFirstName('John')
              ->setLastName('Doe')
              ->setBirthDate(new \DateTime('1990-01-01'))
              ->setSex('Male')
-             ->setRole('Admin')
+             ->setRoles(['ROLE_ADMIN'])
              ->setStatus(UserAccountStatus::ACTIVE)  // Ensure UserAccountStatus is correctly imported
              ->setCreationDate(new \DateTime())
              ->setUsername('johndoe')
@@ -110,7 +110,7 @@ class AppFixtures extends Fixture
             $challenge->setGoal('Atteindre un objectif pour le défi ' . $i);
             $challenge->setStartDate(new \DateTime('2024-01-01'));
             $challenge->setEndDate(new \DateTime('2024-01-31'));
-            $challenge->setUserId($user); // Lier chaque défi à l'utilisateur créé
+            $challenge->setUser($user); // Lier chaque défi à l'utilisateur créé
 
             // Persist du défi
             $manager->persist($challenge);
@@ -213,9 +213,19 @@ class AppFixtures extends Fixture
 
         $manager->persist($programme2);
 
+        $programme3 = new Programme();
+        $programme3->setTitle('Programme un exo');
+        $programme3->setDescription('Programme pour les Roi.');
+        $programme3->setLevel(VideoLevel::DEBUTANT); // Niveau de vidéo "ADVANCED"
+        
+        // Association de vidéos avec ce programme
+        $programme3->addVideoId($video1);
+
+        $manager->persist($programme3);
+
         // Créer des historiques d'abonnement fictifs
         $subscriptionHistory1 = new SubscriptionHistory();
-        $subscriptionHistory1->setUserId($user);
+        $subscriptionHistory1->setUser($user);
         $subscriptionHistory1->setStartDate(new \DateTime('2024-01-01 12:00:00'));
         $subscriptionHistory1->setEndDate(new \DateTime('2024-06-01 12:00:00'));
         $subscriptionHistory1->addSubscriptionId($abonnement1); // Lier un abonnement
@@ -223,7 +233,7 @@ class AppFixtures extends Fixture
 
         // Créer des favoris fictifs
         $favoris = new Favoris();
-        $favoris->setUserId($user);  // Associer à l'utilisateur 1
+        $favoris->setUser($user);  // Associer à l'utilisateur 1
         $favoris->addVideoId($video1);  // Ajouter la vidéo 1 aux favoris
         $favoris->setAddedAt(new \DateTime('2024-12-20 12:00:00'));
         $manager->persist($favoris);

@@ -26,8 +26,8 @@ class Challenge
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'challenges')]
-    private ?User $userId = null;
+    #[ORM\ManyToOne(inversedBy: 'challenge')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -82,14 +82,14 @@ class Challenge
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): static
+    public function setUser(?User $user): static
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }

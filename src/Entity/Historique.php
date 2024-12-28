@@ -19,14 +19,14 @@ class Historique
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'historique')]
-    private ?User $user = null;
-
     /**
      * @var Collection<int, Video>
      */
     #[ORM\OneToMany(targetEntity: Video::class, mappedBy: 'historique')]
     private Collection $Video;
+
+    #[ORM\ManyToOne(inversedBy: 'historique')]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -46,18 +46,6 @@ class Historique
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -88,6 +76,18 @@ class Historique
                 $video->setHistorique(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

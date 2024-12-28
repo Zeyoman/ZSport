@@ -16,9 +16,6 @@ class Favoris
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'favoris')]
-    private ?User $userId = null;
-
     /**
      * @var Collection<int, Video>
      */
@@ -28,6 +25,9 @@ class Favoris
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $addedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'favoris')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->videoId = new ArrayCollection();
@@ -36,18 +36,6 @@ class Favoris
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUserId(): ?User
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(?User $userId): static
-    {
-        $this->userId = $userId;
-
-        return $this;
     }
 
     /**
@@ -82,6 +70,18 @@ class Favoris
     public function setAddedAt(\DateTimeInterface $addedAt): static
     {
         $this->addedAt = $addedAt;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

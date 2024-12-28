@@ -21,10 +21,10 @@ class Rapport
     private ?\DateTimeInterface $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'Rapport')]
-    private ?User $user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'Rapport')]
     private ?Video $video = null;
+
+    #[ORM\ManyToOne(inversedBy: 'rapport')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -55,18 +55,6 @@ class Rapport
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getVideo(): ?Video
     {
         return $this->video;
@@ -75,6 +63,18 @@ class Rapport
     public function setVideo(?Video $video): static
     {
         $this->video = $video;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -22,14 +22,14 @@ class SubscriptionHistory
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'subscriptionHistories')]
-    private ?User $userId = null;
-
     /**
      * @var Collection<int, Abonnement>
      */
     #[ORM\ManyToMany(targetEntity: Abonnement::class, inversedBy: 'subscriptionHistories')]
     private Collection $subscriptionId;
+
+    #[ORM\ManyToOne(inversedBy: 'subscriptionHistory')]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -65,18 +65,6 @@ class SubscriptionHistory
         return $this;
     }
 
-    public function getUserId(): ?User
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(?User $userId): static
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Abonnement>
      */
@@ -97,6 +85,18 @@ class SubscriptionHistory
     public function removeSubscriptionId(Abonnement $subscriptionId): static
     {
         $this->subscriptionId->removeElement($subscriptionId);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

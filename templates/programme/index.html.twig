@@ -8,13 +8,32 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% for programme in programmes %}
+    <li>
+        <strong>{{ programme.title }}</strong> <br>
+        Description : {{ programme.description }}
+        niveau : {{ programme.level.value }}
+    </li>
+    {% for video in programme.videoId %}
+        <li>
+            <strong>{{ video.title }}</strong> - {{ video.description }}
+        </li>
+    {% else %}
+        <li>Aucune vidéo associée à ce programme.</li>
+    {% endfor %}
+{% else %}
+    <p>Aucun programme disponible.</p>
+{% endfor %}
+{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/alexandrepumpalovic/Desktop/DEV/Sandbox/symfony/ZSport/src/Controller/ProgrammeController.php</code></li>
-        <li>Your template at <code>/Users/alexandrepumpalovic/Desktop/DEV/Sandbox/symfony/ZSport/templates/programme/index.html.twig</code></li>
-    </ul>
-</div>
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        console.log('Hello Webpack Encore! Edit me in assets/app.js');
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset("css/programme.css")}}">
 {% endblock %}

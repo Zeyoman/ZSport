@@ -38,12 +38,6 @@ class Video
     private ?string $status = null;
 
     /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'videoEnregistrer')]
-    private Collection $users;
-
-    /**
      * @var Collection<int, Note>
      */
     #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'video')]
@@ -82,14 +76,20 @@ class Video
     #[ORM\ManyToMany(targetEntity: Programme::class, mappedBy: 'videoId')]
     private Collection $programmes;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'videoEnregistrer')]
+    private Collection $users;
+
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->Note = new ArrayCollection();
         $this->Commentaire = new ArrayCollection();
         $this->Rapport = new ArrayCollection();
         $this->favoris = new ArrayCollection();
         $this->programmes = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,33 +177,6 @@ class Video
     public function setStatus(string $status): static
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addVideoEnregistrer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeVideoEnregistrer($this);
-        }
 
         return $this;
     }
@@ -383,6 +356,33 @@ class Video
     {
         if ($this->programmes->removeElement($programme)) {
             $programme->removeVideoId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addVideoEnregistrer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeVideoEnregistrer($this);
         }
 
         return $this;
