@@ -3,6 +3,20 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-
-<h1>Hello Home</h1>
+    {% for abonnement in abonnements %}
+        <li>
+            <strong>{{ abonnement.title }}</strong> <br>
+            Prix : {{ abonnement.price }} € <br>
+            Durée : {{ abonnement.duration }} mois <br>
+            Description : {{ abonnement.description }}
+            options : <br>
+            {% for feature in abonnement.feature %}
+                <ul>
+                    <li>{{ feature }}</li>
+                </ul>
+            {% endfor %}
+        </li>
+    {% else %}
+        <p>Aucun abonnement disponible.</p>
+    {% endfor %}
 {% endblock %}

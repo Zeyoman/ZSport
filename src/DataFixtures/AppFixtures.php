@@ -23,11 +23,20 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // Création d'abonnements fictifs
+        $abonnement = new Abonnement();
+        $abonnement->setTitle('Abonnement GOD TIER DE LA MORT');
+        $abonnement->setPrice(1);
+        $abonnement->setDuration(99999999);
+        $abonnement->setDescription('Accès au monde entier pendant toute la vie');
+        $abonnement->setFeature(['option1', 'option2', 'option3']);
+        $manager->persist($abonnement);
+
         $abonnement1 = new Abonnement();
         $abonnement1->setTitle('Abonnement Basique');
         $abonnement1->setPrice(9.99);
         $abonnement1->setDuration(30);
         $abonnement1->setDescription('Accès à des vidéos de base pendant un mois');
+        $abonnement1->setFeature(['option1', 'option2', 'option3']);
         $manager->persist($abonnement1);
         $this->addReference('abonnement_1', $abonnement1); // On ajoute la référence pour utiliser plus tard
 
@@ -36,6 +45,7 @@ class AppFixtures extends Fixture
         $abonnement2->setPrice(19.99);
         $abonnement2->setDuration(30);
         $abonnement2->setDescription('Accès complet à tous les contenus vidéo pendant un mois');
+        $abonnement2->setFeature(['option1', 'option2', 'option3']);
         $manager->persist($abonnement2);
         $this->addReference('abonnement_2', $abonnement2); // On ajoute une autre référence
 
@@ -43,7 +53,8 @@ class AppFixtures extends Fixture
         $abonnement3->setTitle('Abonnement Annuel');
         $abonnement3->setPrice(99.99);
         $abonnement3->setDuration(365);
-        $abonnement3->setDescription('Accès complet pendant une année');
+        $abonnement3->setDescription('Accès complet à tous les contenus vidéo pendant un mois');
+        $abonnement3->setFeature(['option1', 'option2', 'option3']);
         $manager->persist($abonnement3);
         $this->addReference('abonnement_3', $abonnement3); // Une autre référence
 

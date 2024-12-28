@@ -1,4 +1,4 @@
-import './bootstrap.js';
+// import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -8,3 +8,11 @@ import './bootstrap.js';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+document.addEventListener('click', function(e){
+    var element = e.target
+    console.log(element.id)
+    if(element.id == 'bouton-exo'){
+        console.log('oui')
+    }
+})
