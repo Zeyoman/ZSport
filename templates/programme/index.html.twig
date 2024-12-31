@@ -9,18 +9,7 @@
 </style>
 
 {% for programme in programmes %}
-    <li>
-        <strong>{{ programme.title }}</strong> <br>
-        Description : {{ programme.description }}
-        niveau : {{ programme.level.value }}
-    </li>
-    {% for video in programme.videoId %}
-        <li>
-            <strong>{{ video.title }}</strong> - {{ video.description }}
-        </li>
-    {% else %}
-        <li>Aucune vidéo associée à ce programme.</li>
-    {% endfor %}
+    {% include 'parts/programme/programme-card.html.twig' %}
 {% else %}
     <p>Aucun programme disponible.</p>
 {% endfor %}

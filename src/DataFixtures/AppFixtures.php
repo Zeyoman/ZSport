@@ -17,9 +17,17 @@ use App\Enum\UserAccountStatus;
 use App\Enum\VideoLevel;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         // Création d'abonnements fictifs
@@ -68,9 +76,14 @@ class AppFixtures extends Fixture
              ->setStatus(UserAccountStatus::ACTIVE)  // Ensure UserAccountStatus is correctly imported
              ->setCreationDate(new \DateTime())
              ->setUsername('johndoe')
-             ->setEmail('john.doe@example.com')
-             ->setPassword('printemps')
-             ->setAbonnement($abonnement2);
+             ->setEmail('john.doe@example.com');
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $user,
+                'printemps'
+            );
+            $user->setPassword($hashedPassword);
+            $user->setRoles(['ROLE_ADMIN']);
+            $user->setAbonnement($abonnement2);
 
         // Création de vidéos fictives
         for ($i = 1; $i <= 10; $i++) {

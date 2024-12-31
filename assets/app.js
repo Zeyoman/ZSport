@@ -6,13 +6,3 @@
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
-
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
-
-document.addEventListener('click', function(e){
-    var element = e.target
-    console.log(element.id)
-    if(element.id == 'bouton-exo'){
-        console.log('oui')
-    }
-})
