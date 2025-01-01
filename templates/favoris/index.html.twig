@@ -9,12 +9,26 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Mes Favoris</h1>
 
-    This friendly message is coming from:
     <ul>
-        <li>Your controller at <code>/Users/alexandrepumpalovic/Desktop/DEV/Sandbox/symfony/ZSport/src/Controller/FavorisController.php</code></li>
-        <li>Your template at <code>/Users/alexandrepumpalovic/Desktop/DEV/Sandbox/symfony/ZSport/templates/favoris/index.html.twig</code></li>
+    {% for favoris in UserFavoris %}
+        <h2>Favoris n°{{ favoris.id }}</h2>
+        <p>Ajouté le : {{ favoris.addedAt|date('d/m/Y H:i') }}</p>
+        
+        <ul>
+            {# On boucle sur les vidéos associées #}
+            {% for video in favoris.videoId %}
+                <li>{{ video.title }} ({{ video.theme }})</li>
+            {% else %}
+                <li>Aucune vidéo pour ce favoris.</li>
+            {% endfor %}
+        </ul>
+
+        <hr>
+    {% else %}
+        <p>Aucun favoris trouvé.</p>
+    {% endfor %}
     </ul>
 </div>
 {% endblock %}

@@ -12,11 +12,18 @@ class HomeController extends AbstractController
     #[Route('/', name: 'Homepage')]
     public function index(AbonnementRepository $abonnementRepository): Response
     {
+
+        /** @var User|null $user */
+        $user = $this->getUser();
+
+        $abonnementUser = $user ? $user->getAbonnement() : null;
+
         $abonnements = $abonnementRepository->findAll();
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'abonnements' => $abonnements,
+            'abonnementUser' => $abonnementUser,
         ]);
     }
 }

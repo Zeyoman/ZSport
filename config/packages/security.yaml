@@ -53,8 +53,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
+        # Laissez l’accueil accessible aux anonymes
+        - { path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/$', roles: IS_AUTHENTICATED_ANONYMOUSLY } # La homepage est publique
+        - { path: '^/admin', roles: ROLE_ADMIN } # Protège les routes admin
+        - { path: '^/', roles: ROLE_USER } # Les autres pages nécessitent d'être connecté
 
 when@test:
     security:
