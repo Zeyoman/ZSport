@@ -54,8 +54,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # Laissez l’accueil accessible aux anonymes
-        - { path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/$', roles: IS_AUTHENTICATED_ANONYMOUSLY } # La homepage est publique
+        - { path: '^/login', roles: PUBLIC_ACCESS }
+        - { path: '^/$', roles: PUBLIC_ACCESS } # La homepage est publique
         - { path: '^/admin', roles: ROLE_ADMIN } # Protège les routes admin
         - { path: '^/', roles: ROLE_USER } # Les autres pages nécessitent d'être connecté
 
