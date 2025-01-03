@@ -55,6 +55,8 @@ security:
     access_control:
         # Laissez l’accueil accessible aux anonymes
         - { path: '^/login', roles: PUBLIC_ACCESS }
+        - { path: '^/reset-password', roles: PUBLIC_ACCESS }
+        - { path: '^/reset-password/check-email', roles: PUBLIC_ACCESS }
         - { path: '^/$', roles: PUBLIC_ACCESS } # La homepage est publique
         - { path: '^/admin', roles: ROLE_ADMIN } # Protège les routes admin
         - { path: '^/', roles: ROLE_USER } # Les autres pages nécessitent d'être connecté

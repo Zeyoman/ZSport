@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class FavorisController extends AbstractController
 {
     #[Route('/favoris', name: 'app_favoris')]
+    #[IsGranted('ROLE_USER')]
     public function index( FavorisRepository $favorisRepository): Response
     {
         $user = $this->getUser();
