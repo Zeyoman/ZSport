@@ -4,8 +4,16 @@
 
 {% block body %}
     {% if app.user %}
-        {% include 'parts/abonnements/abonnement.html.twig' %}
+        {% if app.user.isVerified %}
+            {% include 'parts/abonnements/abonnement.html.twig' %}
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                Merci de vérifier votre adresse email pour accéder à toutes les fonctionnalités du site.
+                <a href="{{ path('app_verify_email') }}" class="alert-link">Renvoyer l'email de vérification</a>
+            </div>
+        {% endif %}
     {% else %}
         <h1>Vous n'êtes pas connecté</h1>
+        <p><a href="{{ path('app_login') }}">Connectez-vous</a> ou <a href="{{ path('app_register') }}">inscrivez-vous</a> pour accéder à toutes les fonctionnalités.</p>
     {% endif %}
 {% endblock %}

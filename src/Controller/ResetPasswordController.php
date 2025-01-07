@@ -135,6 +135,7 @@ class ResetPasswordController extends AbstractController
             'email' => $emailFormData,
         ]);
 
+
         // Do not reveal whether a user account was found or not.
         if (!$user) {
             return $this->redirectToRoute('app_check_email');
@@ -153,8 +154,10 @@ class ResetPasswordController extends AbstractController
             //     $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
             // ));
 
-            return $this->redirectToRoute('app_check_email');
+            return $this->redirectToRoute('app_verify_email');
         }
+
+        dump('ok');
 
         $email = (new TemplatedEmail())
             ->from(new Address('reset-password@zsport.team', 'Zsport Bot'))

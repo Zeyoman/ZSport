@@ -16,7 +16,7 @@ class HomeController extends AbstractController
         /** @var User|null $user */
         $user = $this->getUser();
 
-        $abonnementUser = $user ? $user->getAbonnement() : null;
+        $abonnementUser = $user ? $user->getAbonnement() : '';
 
         $abonnements = $abonnementRepository->findAll();
 

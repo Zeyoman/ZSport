@@ -16,14 +16,10 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\LoginFormAuthenticator
 
             form_login:
-                login_path: app_login      # La route de ta page de login
+                login_path: app_login
                 check_path: app_login
-
-            custom_authenticators:
-                - App\Security\LoginFormAuthenticator
 
             logout:
                 path: app_logout
@@ -36,10 +32,8 @@ security:
                 path: /
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form, uncomment the following line to always enable it.
-                #always_remember_me: true
+                # always_remember_me: true
             
-            entry_point: App\Security\LoginFormAuthenticator
-
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -55,6 +49,7 @@ security:
     access_control:
         # Laissez l’accueil accessible aux anonymes
         - { path: '^/login', roles: PUBLIC_ACCESS }
+        - { path: '^/register', roles: PUBLIC_ACCESS }
         - { path: '^/reset-password', roles: PUBLIC_ACCESS }
         - { path: '^/reset-password/check-email', roles: PUBLIC_ACCESS }
         - { path: '^/$', roles: PUBLIC_ACCESS } # La homepage est publique
