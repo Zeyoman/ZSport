@@ -1,20 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VideoController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/alexandrepumpalovic/Desktop/DEV/Sandbox/symfony/ZSport/src/Controller/VideoController.php</code></li>
-        <li>Your template at <code>/Users/alexandrepumpalovic/Desktop/DEV/Sandbox/symfony/ZSport/templates/video/index.html.twig</code></li>
-    </ul>
+<div class="max-w-full">
+    <div class="overflow-auto flex no-scrollbar">
+    {% for video in videos %}
+        <a href="{{ path('app_video_show', {'id': video.id}) }}">
+            <div class="w-72 mx-7 rounded-lg bg-zinc-900 text-white px-12 py-4">
+                <img src="{{ video.image }}" class="h-7 w-16" alt="...">
+                <div>
+                    <div>
+                        <h5 class="card-title">{{ video.title }}</h5>
+                    </div>
+                    <div class="flex gap-4">
+                        <p class="card-text">{{ video.level.value }}</p>
+                        <p class="card-theme">{{ video.theme }}</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    </div>    
 </div>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <h1>Video admin view</h1>
+
+    <table class="table w-full">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Theme</th>
+                <th>Image</th>
+                <th>FichierVideo</th>
+                <th>NoteGlobal</th>
+                <th>Status</th>
+                <th>Level</th>
+                <th>View</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for video in videos %}
+            <tr>
+                <td>{{ video.id }}</td>
+                <td>{{ video.title }}</td>
+                <td>{{ video.description }}</td>
+                <td>{{ video.theme }}</td>
+                <td>{{ video.image }}</td>
+                <td>{{ video.fichierVideo }}</td>
+                <td>{{ video.noteGlobal }}</td>
+                <td>{{ video.status }}</td>
+                <td>{{ video.level.value }}</td>
+                <td>{{ video.view }}</td>
+                <td>
+                    <a href="{{ path('app_video_show', {'id': video.id}) }}">show</a>
+                    <a href="{{ path('app_video_edit', {'id': video.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_video_new') }}">Create new</a>
+{% endif %}
 {% endblock %}

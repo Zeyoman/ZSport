@@ -1,28 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProgrammeController!{% endblock %}
+{% block title %}Programme index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Programme index</h1>
 
-{% for programme in programmes %}
-    {% include 'parts/programme/programme-card.html.twig' %}
-{% else %}
-    <p>Aucun programme disponible.</p>
-{% endfor %}
-{% endblock %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Level</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for programme in programmes %}
+            <tr>
+                <td>{{ programme.id }}</td>
+                <td>{{ programme.title }}</td>
+                <td>{{ programme.description }}</td>
+                <td>{{ programme.level.value }}</td>
+                <td>
+                    <a href="{{ path('app_programme_show', {'id': programme.id}) }}">show</a>
+                    <a href="{{ path('app_programme_edit', {'id': programme.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        console.log('Hello Webpack Encore! Edit me in assets/app.js');
-    </script>
-{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{asset("css/programme.css")}}">
+    <a href="{{ path('app_programme_new') }}">Create new</a>
 {% endblock %}

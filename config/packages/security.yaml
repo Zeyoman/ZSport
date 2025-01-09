@@ -47,14 +47,21 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # Laissez l’accueil accessible aux anonymes
+        # Anonyme path
         - { path: '^/login', roles: PUBLIC_ACCESS }
         - { path: '^/register', roles: PUBLIC_ACCESS }
         - { path: '^/reset-password', roles: PUBLIC_ACCESS }
         - { path: '^/reset-password/check-email', roles: PUBLIC_ACCESS }
-        - { path: '^/$', roles: PUBLIC_ACCESS } # La homepage est publique
-        - { path: '^/admin', roles: ROLE_ADMIN } # Protège les routes admin
-        - { path: '^/', roles: ROLE_USER } # Les autres pages nécessitent d'être connecté
+        - { path: '^/$', roles: PUBLIC_ACCESS }
+        # Admin path 
+        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: '^/abonnement/new', roles: ROLE_ADMIN }
+        - { path: '^/challenge/new', roles: ROLE_ADMIN }
+        - { path: '^/programme/new', roles: ROLE_ADMIN }
+        - { path: '^/user/new', roles: ROLE_ADMIN }
+        - { path: '^/video/new', roles: ROLE_ADMIN }
+        # User path
+        - { path: '^/', roles: ROLE_USER }
 
 when@test:
     security:

@@ -1,0 +1,20 @@
+<div class="max-w-full">
+    <div class="overflow-auto flex no-scrollbar">
+    {% for video in videos %}
+        <a href="{{ path('app_video_show', {'id': video.id}) }}">
+            <div class="w-72 mx-7 rounded-lg bg-zinc-900 text-white px-12 py-4">
+                <img src="{{ video.image }}" class="h-7 w-16" alt="...">
+                <div>
+                    <div>
+                        <h5 class="card-title">{{ video.title }}</h5>
+                    </div>
+                    <div class="flex gap-4">
+                        <p class="card-text">{{ video.level.value }}</p>
+                        <p class="card-theme">{{ video.theme }}</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    </div>    
+</div>
