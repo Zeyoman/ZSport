@@ -7,7 +7,9 @@
     <div class="w-4/6 bg-black" value="container video">
         <div value="video">
             <div class="m-5 rounded-lg bg-white" value="video">
-                <img src="{{ video.image }}" class="w-full h-96" alt="...">
+            <video controls class="w-full h-96" value="video">
+                <source src="{{ asset('uploads/video/' ~ video.fichierVideo) }}" type="video/mp4">
+                Your browser does not support the video tag.
             </div>
             <div class="text-white mx-5" value="info">
                 <div value="titre">

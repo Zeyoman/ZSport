@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/video')]
 final class VideoController extends AbstractController
@@ -23,13 +25,33 @@ final class VideoController extends AbstractController
     }
 
     #[Route('/admin/new', name: 'app_video_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,SluggerInterface $slugger): Response
     {
         $video = new Video();
         $form = $this->createForm(VideoType::class, $video);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $fichierVideo = $form->get('fichierVideo')->getData();
+
+            if ($fichierVideo) {
+                $originalFilename = pathinfo($fichierVideo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$fichierVideo->guessExtension();
+
+                try {
+                    $fichierVideo->move(
+                        $this->getParameter('video_upload_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+
+                }
+
+                $video->setFichierVideo($newFilename);
+            }
+
             $entityManager->persist($video);
             $entityManager->flush();
 
@@ -51,12 +73,32 @@ final class VideoController extends AbstractController
     }
 
     #[Route('/admin/{id}/edit', name: 'app_video_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Video $video, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Video $video, EntityManagerInterface $entityManager,SluggerInterface $slugger): Response
     {
         $form = $this->createForm(VideoType::class, $video);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $fichierVideo = $form->get('fichierVideo')->getData();
+
+            if ($fichierVideo) {
+                $originalFilename = pathinfo($fichierVideo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$fichierVideo->guessExtension();
+
+                try {
+                    $fichierVideo->move(
+                        $this->getParameter('video_upload_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+
+                }
+
+                $video->setFichierVideo($newFilename);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_video_index', [], Response::HTTP_SEE_OTHER);
