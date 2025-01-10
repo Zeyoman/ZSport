@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UploadController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+{% for upload in uploads %}
+    <a href="{{ upload.id }}">
+        <div class="w-72 mx-7 rounded-lg bg-zinc-900 text-white px-12 py-4">
+            <img src="{{ upload.url }}" class="h-7 w-16" alt="...">
+            <div>
+                <div>
+                    <h5 class="card-title">{{ upload.url }}</h5>
+                </div>
+            </div>
+        </div>
+    </a>  
+{% endfor %}
+
+<script>
+    document.querySelector('form').addEventListener('submit', function() {
+
+        const formData = new FormData();
+
+        uploadedFiles.forEach(file => {
+            formData.append('files[]', file);
+        });
+
+        fetch('{{ path('api_upload') }}', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            window.location.reload();
+        }).catch(error => {
+            console.error(error);
+            alert('Une erreur est survenue');
+        });
+    });
+</script>
+
+{% endblock %}

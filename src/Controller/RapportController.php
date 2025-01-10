@@ -50,7 +50,7 @@ final class RapportController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_rapport_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/{id}/edit', name: 'app_rapport_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Rapport $rapport, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RapportType::class, $rapport);

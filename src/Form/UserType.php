@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Abonnement;
 use App\Entity\User;
 use App\Entity\Video;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +17,16 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('roles')
+            ->add('roles', ChoiceType::class, [
+                'choices'  => [
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN',
+                    'Banni' => 'ROLE_BANNED',
+                ],
+                'label' => 'Rôle',
+                'expanded' => true, // Radio buttons
+                'multiple' => false, // Une seule sélection
+            ])
             ->add('password')
             ->add('firstName')
             ->add('lastName')

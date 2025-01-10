@@ -22,7 +22,7 @@ final class ChallengeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_challenge_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/new', name: 'app_challenge_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $challenge = new Challenge();
@@ -50,7 +50,7 @@ final class ChallengeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_challenge_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/{id}/edit', name: 'app_challenge_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Challenge $challenge, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ChallengeType::class, $challenge);
@@ -68,7 +68,7 @@ final class ChallengeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_challenge_delete', methods: ['POST'])]
+    #[Route('/admin/{id}', name: 'app_challenge_delete', methods: ['POST'])]
     public function delete(Request $request, Challenge $challenge, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$challenge->getId(), $request->getPayload()->getString('_token'))) {

@@ -62,6 +62,8 @@ security:
         - { path: '^/video/new', roles: ROLE_ADMIN }
         # User path
         - { path: '^/', roles: ROLE_USER }
+        # Banned path
+        - { path: '^/$', roles: ROLE_BANNED }
 
 when@test:
     security:

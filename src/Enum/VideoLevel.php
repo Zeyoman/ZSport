@@ -7,6 +7,6 @@ namespace App\Enum;
 enum VideoLevel: string
 {
     case DEBUTANT = 'Débutant';
-    case INTERMEDIARE = 'Intermédiare';
+    case INTERMEDIAIRE = 'Intermédiare';
     case DIFFICILE = 'Avancé';
 }

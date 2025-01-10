@@ -8,6 +8,8 @@ use App\Entity\Programme;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Enum\VideoLevel;
+use CodeIgniter\Files\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -22,8 +24,16 @@ class VideoType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('theme')
-            ->add('image')
-            ->add('fichierVideo')
+            ->add('image', FileType::class, [
+                'label' => 'Image de la vidéo',
+                'mapped' => false,
+                'required' => false,
+            ])
+            ->add('fichierVideo', FileType::class, [
+                'label' => 'Fichier vidéo',
+                'mapped' => false,
+                'required' => false,
+            ])
             ->add('noteGlobal')
             ->add('status')
             ->add('level', EnumType::class, [

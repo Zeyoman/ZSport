@@ -94,7 +94,7 @@ class AppFixtures extends Fixture
             $video->setFichierVideo('video' . $i . '.mp4');
             $video->setNoteGlobal(rand(1, 5));
             $video->setStatus('published');
-            $video->setLevel(VideoLevel::DEBUTANT); // Utilisation de l'enum VideoLevel
+            $video->setLevel(VideoLevel::DEBUTANT);
             $video->setView(rand(0, 100));
 
             // Ajout de l'utilisateur à la vidéo
@@ -111,7 +111,7 @@ class AppFixtures extends Fixture
         $video1->setFichierVideo('video' . $i . '.mp4');
         $video1->setNoteGlobal(rand(1, 5));
         $video1->setStatus('published');
-        $video1->setLevel(VideoLevel::DEBUTANT); // Utilisation de l'enum VideoLevel
+        $video1->setLevel(VideoLevel::DEBUTANT); 
         $video1->setView(rand(0, 100));
         $video1->addUser($user);
         $manager->persist($video1);
@@ -123,7 +123,7 @@ class AppFixtures extends Fixture
             $challenge->setGoal('Atteindre un objectif pour le défi ' . $i);
             $challenge->setStartDate(new \DateTime('2024-01-01'));
             $challenge->setEndDate(new \DateTime('2024-01-31'));
-            $challenge->setUser($user); // Lier chaque défi à l'utilisateur créé
+            $challenge->setUser($user);
 
             // Persist du défi
             $manager->persist($challenge);
@@ -205,7 +205,7 @@ class AppFixtures extends Fixture
         $programme1 = new Programme();
         $programme1->setTitle('Programme de Base');
         $programme1->setDescription('Ce programme est destiné aux débutants.');
-        $programme1->setLevel(VideoLevel::INTERMEDIARE); // Niveau de vidéo "BASIC"
+        $programme1->setLevel(VideoLevel::INTERMEDIAIRE);
         
         // Association de vidéos avec ce programme
         foreach ($video as $videos) {
@@ -217,9 +217,8 @@ class AppFixtures extends Fixture
         $programme2 = new Programme();
         $programme2->setTitle('Programme Avancé');
         $programme2->setDescription('Programme pour les utilisateurs avancés.');
-        $programme2->setLevel(VideoLevel::DEBUTANT); // Niveau de vidéo "ADVANCED"
+        $programme2->setLevel(VideoLevel::DEBUTANT);
         
-        // Association de vidéos avec ce programme
         foreach ($video as $videos) {
             $programme2->addVideoId($videos);
         }
@@ -229,25 +228,23 @@ class AppFixtures extends Fixture
         $programme3 = new Programme();
         $programme3->setTitle('Programme un exo');
         $programme3->setDescription('Programme pour les Roi.');
-        $programme3->setLevel(VideoLevel::DEBUTANT); // Niveau de vidéo "ADVANCED"
+        $programme3->setLevel(VideoLevel::DEBUTANT);
         
-        // Association de vidéos avec ce programme
         $programme3->addVideoId($video1);
 
         $manager->persist($programme3);
 
-        // Créer des historiques d'abonnement fictifs
         $subscriptionHistory1 = new SubscriptionHistory();
         $subscriptionHistory1->setUser($user);
         $subscriptionHistory1->setStartDate(new \DateTime('2024-01-01 12:00:00'));
         $subscriptionHistory1->setEndDate(new \DateTime('2024-06-01 12:00:00'));
-        $subscriptionHistory1->addSubscriptionId($abonnement1); // Lier un abonnement
+        $subscriptionHistory1->addSubscriptionId($abonnement1);
         $manager->persist($subscriptionHistory1);
 
-        // Créer des favoris fictifs
+        // Créer des favoris
         $favoris = new Favoris();
-        $favoris->setUser($user);  // Associer à l'utilisateur 1
-        $favoris->addVideoId($video1);  // Ajouter la vidéo 1 aux favoris
+        $favoris->setUser($user);
+        $favoris->addVideoId($video1);
         $favoris->setAddedAt(new \DateTime('2024-12-20 12:00:00'));
         $manager->persist($favoris);
 
@@ -255,9 +252,8 @@ class AppFixtures extends Fixture
         $rapport = new Rapport();
         $rapport->setMotif('Violation des règles')
                 ->setDate(new \DateTime('2024-12-20 12:00:00'))
-                ->setUser($user) // Associer l'utilisateur au rapport
+                ->setUser($user)
                 ->setVideo($video); 
-        // Persister le rapport
         $manager->persist($rapport);
 
         // Add collections

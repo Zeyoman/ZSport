@@ -22,7 +22,7 @@ final class VideoController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_video_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/new', name: 'app_video_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $video = new Video();
@@ -50,7 +50,7 @@ final class VideoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_video_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/{id}/edit', name: 'app_video_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Video $video, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(VideoType::class, $video);
@@ -68,7 +68,7 @@ final class VideoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_video_delete', methods: ['POST'])]
+    #[Route('/admin/{id}', name: 'app_video_delete', methods: ['POST'])]
     public function delete(Request $request, Video $video, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$video->getId(), $request->getPayload()->getString('_token'))) {

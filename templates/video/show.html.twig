@@ -3,8 +3,47 @@
 {% block title %}Video{% endblock %}
 
 {% block body %}
-    <h1>Video</h1>
-
+<div class="flex">
+    <div class="w-4/6 bg-black" value="container video">
+        <div value="video">
+            <div class="m-5 rounded-lg bg-white" value="video">
+                <img src="{{ video.image }}" class="w-full h-96" alt="...">
+            </div>
+            <div class="text-white mx-5" value="info">
+                <div value="titre">
+                    <h2 class="text-2xl font-bold">{{ video.title }}</h2>
+                </div>
+                <div value="theme et level">
+                    <div class="my-1" value="theme">
+                        <p class="text-base px-5 py-1 rounded-full bg-white w-fit text-black">{{ video.theme }}</p>
+                    </div>
+                    <div value="level">
+                    {% if video.level.value == "Débutant" %}
+                        <p class="text-base px-5 py-1 rounded-full bg-green-200 w-fit text-black">{{ video.level.value }}</p>
+                    {% elseif video.level.value == "Intermédiare" %}
+                        <p class="text-base px-5 py-1 rounded-full bg-orange-200 w-fit text-black">{{ video.level.value }}</p>
+                    {% elseif video.level.value == "Avancé" %}
+                        <p class="text-base px-5 py-1 rounded-full bg-red-200 w-fit text-black">{{ video.level.value }}</p>
+                    {% endif %}
+                    </div>
+                </div>
+                <div value="description">
+                    <p class="text-base">{{ video.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div value="commentaire">
+        </div>
+    </div>
+    <div class="w-2/6 h-10 bg-red-500" value="container suggestion">
+        <div>
+            <div value="titre suggestion">
+            </div>
+            <div value="suggestion">
+            </div>
+        </div>
+    </div>
+</div>
     <table class="table">
         <tbody>
             <tr>
