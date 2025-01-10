@@ -4,18 +4,12 @@
 
 {% block body %}
     {% if app.user %}
-        {% if app.user.roles != 'ROLE_BANNED' %}
-            {% if app.user.isVerified %}
-                {% include 'parts/video/list-video.html.twig' %}
-            {% else %}
-                <div class="alert alert-danger" role="alert">
-                    Merci de vérifier votre adresse email pour accéder à toutes les fonctionnalités du site.
-                    <a href="{{ path('app_verify_email') }}" class="alert-link">Renvoyer l'email de vérification</a>
-                </div>
-            {% endif %}
+        {% if app.user.isVerified %}
+            {% include 'parts/video/list-video.html.twig' %}
         {% else %}
             <div class="alert alert-danger" role="alert">
-                Votre compte a été banni. Pour plus d'informations, veuillez contacter <a href="mailto:zsport.information@gmail.com">Zsport@gmail.com</a> l'administrateur.
+                Merci de vérifier votre adresse email pour accéder à toutes les fonctionnalités du site.
+                <a href="{{ path('app_verify_email') }}" class="alert-link">Renvoyer l'email de vérification</a>
             </div>
         {% endif %}
     {% else %}
