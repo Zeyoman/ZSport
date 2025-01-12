@@ -1,4 +1,53 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {# {{ form_widget(form) }} #}
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.duration) }}
+        {{ form_row(form.description) }}
+
+        <div id="features">
+            <h3>Caractéristiques</h3>
+            {{ form_widget(form.feature) }}
+            <button type="button" class="add_feature_link btn btn-secondary">Ajouter une caractéristique</button>
+        </div>
+
+        {{ form_row(form.subscriptionHistories) }}
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var $featuresCollectionHolder = $('#features div');
+        var $addFeatureButton = $('.add_feature_link');
+
+        $featuresCollectionHolder.data('index', $featuresCollectionHolder.find('input').length);
+
+        $addFeatureButton.on('click', function(e) {
+            e.preventDefault();
+
+            var prototype = $featuresCollectionHolder.data('prototype');
+
+            var index = $featuresCollectionHolder.data('index');
+
+            // Remplacer '__name__' par l'index actuel dans le prototype
+            var newForm = prototype.replace(/__name__/g, index);
+
+            $featuresCollectionHolder.data('index', index + 1);
+
+            var $newForm = $('<div class="feature-item"></div>').append(newForm);
+            var $removeButton = $('<button type="button" class="btn btn-danger">Supprimer</button>');
+
+            $newForm.append($removeButton);
+            $featuresCollectionHolder.append($newForm);
+        });
+
+        $featuresCollectionHolder.on('click', '.btn-danger', function(e) {
+            e.preventDefault();
+            $(this).parent('.feature-item').remove();
+        });
+    });
+</script>

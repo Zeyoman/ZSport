@@ -18,6 +18,7 @@ final class ProgrammeController extends AbstractController
     #[Route(name: 'app_programme_index', methods: ['GET'])]
     public function index(ProgrammeRepository $programmeRepository, VideoRepository $videoRepository): Response
     {
+
         $programmes = $programmeRepository->findAll();
         $videos = $videoRepository->findAll();
 

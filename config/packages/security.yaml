@@ -63,8 +63,8 @@ security:
         # User path
         - { path: '^/', roles: ROLE_USER }
         # Banned path
-        - { path: '^/logout', roles: ROLE_BANNED }
-        - { path: '^/', roles: ROLE_BANNED }
+        # - { path: '^/banned', roles: ROLE_BANNED }
+        # - { path: '^/logout', roles: ROLE_BANNED }
 
 when@test:
     security:

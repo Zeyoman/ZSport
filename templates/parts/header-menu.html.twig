@@ -3,17 +3,17 @@
     <!-- Logo -->
     <div class="flex lg:flex-1">
       <a href="{{ path('Homepage') }}" class="-m-1.5 p-1.5">
-        <span class="sr-only">Your Company</span>
+        <span class="sr-only">Zsport</span>
         <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company Logo">
       </a>
     </div>
     
     <!-- Navigation Links (Desktop) -->
     <div class="hidden lg:flex lg:gap-x-12">
-      <a href="#" class="text-sm font-semibold text-gray-900">Product</a>
-      <a href="#" class="text-sm font-semibold text-gray-900">Features</a>
-      <a href="#" class="text-sm font-semibold text-gray-900">Marketplace</a>
-      <a href="#" class="text-sm font-semibold text-gray-900">Company</a>
+      <a href="{{ path("app_video_index") }}" class="text-sm font-semibold text-gray-900">Vidéos</a>
+      <a href="{{ path("app_programme_index") }}" class="text-sm font-semibold text-gray-900">Programme</a>
+      <a href="{{ path("app_challenge_index") }}" class="text-sm font-semibold text-gray-900">Challenge</a>
+      <a href="{{ path("app_favoris") }}" class="text-sm font-semibold text-gray-900">Favoris</a>
     </div>
     
     <!-- User Authentication Links -->
@@ -66,10 +66,10 @@
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-6">
-            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Product</a>
-            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Features</a>
-            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Marketplace</a>
-            <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Company</a>
+            <a href="{{ path("app_video_index") }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Vidéos</a>
+            <a href="{{ path("app_programme_index") }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Programme</a>
+            <a href="{{ path("app_challenge_index") }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Challenge</a>
+            <a href="{{ path("app_favoris") }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">Favoris</a>
           </div>
           <div class="py-6">
             {% if app.user %}

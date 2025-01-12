@@ -17,9 +17,14 @@ final class ChallengeController extends AbstractController
     #[Route(name: 'app_challenge_index', methods: ['GET'])]
     public function index(ChallengeRepository $challengeRepository): Response
     {
+        $user = $this->getUser();
+
+        var_dump($user->getRoles());
+        
         return $this->render('challenge/index.html.twig', [
             'challenges' => $challengeRepository->findAll(),
         ]);
+        
     }
 
     #[Route('/admin/new', name: 'app_challenge_new', methods: ['GET', 'POST'])]

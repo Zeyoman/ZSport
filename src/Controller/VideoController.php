@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Video;
+use App\Entity\User;
 use App\Form\VideoType;
 use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;

@@ -17,6 +17,8 @@ final class CommentaireController extends AbstractController
     #[Route(name: 'app_commentaire_index', methods: ['GET'])]
     public function index(CommentaireRepository $commentaireRepository): Response
     {
+        $user = $this->getUser();
+
         return $this->render('commentaire/index.html.twig', [
             'commentaires' => $commentaireRepository->findAll(),
         ]);

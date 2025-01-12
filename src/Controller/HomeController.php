@@ -13,7 +13,6 @@ class HomeController extends AbstractController
     #[Route('/', name: 'Homepage')]
     public function index(AbonnementRepository $abonnementRepository, VideoRepository $videoRepository): Response
     {
-
         /** @var User|null $user */
         $user = $this->getUser();
 

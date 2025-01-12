@@ -17,9 +17,16 @@ final class AbonnementController extends AbstractController
     #[Route(name: 'app_abonnement_index', methods: ['GET'])]
     public function index(AbonnementRepository $abonnementRepository): Response
     {
-        return $this->render('abonnement/index.html.twig', [
-            'abonnements' => $abonnementRepository->findAll(),
-        ]);
+        $user = $this->getUser();
+
+        if($user->getRoles() == ['ROLE_BANNED']){
+            return $this->render('banned/index.html.twig');
+        }else{
+            return $this->render('abonnement/index.html.twig', [
+                'abonnements' => $abonnementRepository->findAll(),
+            ]);
+        }
+
     }
 
     #[Route('/admin/new', name: 'app_abonnement_new', methods: ['GET', 'POST'])]

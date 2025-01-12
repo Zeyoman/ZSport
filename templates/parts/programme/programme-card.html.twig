@@ -1,29 +1,15 @@
-<li>
-    <strong>{{ programme.title }}</strong> <br>
-    Description : {{ programme.description }}
-    niveau : {{ programme.level.value }}
-</li>
-{% for video in programme.videoId %}
-    <li value="video-{{video.id}}">
-        <strong>{{ video.title }}</strong> - {{ video.description }}
+
+{% for programme in programmes %}
+    <li>
+        <strong>{{ programme.title }}</strong> - {{ programme.description }}
     </li>
 {% else %}
     <li>Aucune vidéo associée à ce programme.</li>
 {% endfor %}
-{% for video in videos %}
+{# {% for video in videos %}
     <li value="video-{{video.id}}">
         <strong>{{ video.title }}</strong> - {{ video.level.value }}
     </li>
 {% else %}
     <li>Aucune vidéo.</li>
-{% endfor %}
-
-{% block javascripts %}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log(document.querySelectorAll('li').className);
-            const videos = {{ videos|json_encode|raw }};
-            console.log(videos);
-        });
-    </script>
-{% endblock %}
+{% endfor %} #}

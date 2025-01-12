@@ -6,6 +6,7 @@
     {% if app.user %}
         {% if app.user.isVerified %}
             {% include 'parts/video/list-video.html.twig' %}
+            {% include 'parts/programme/programme-card.html.twig' %}
         {% else %}
             <div class="alert alert-danger" role="alert">
                 Merci de vérifier votre adresse email pour accéder à toutes les fonctionnalités du site.
