@@ -8,6 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
+{% if is_granted('ROLE_ADMIN') %}
 <div class="example-wrapper">
     <h1>Mes Favoris</h1>
 
@@ -31,4 +32,5 @@
     {% endfor %}
     </ul>
 </div>
+{% endif %}
 {% endblock %}

@@ -3,6 +3,15 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
+
+<td>{{ app.user.username }}</td>
+<td>{{ app.user.firstName }}</td>
+<td>{{ app.user.lastName }}</td>
+<td>{{ app.user.birthDate ? app.user.birthDate|date('Y-m-d') : '' }}</td>
+<td>{{ app.user.creationDate ? app.user.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+<td>{{ app.user.email }}</td>
+
+{% if is_granted('ROLE_ADMIN') %}
     <h1>User index</h1>
 
     <table class="table">
@@ -50,4 +59,5 @@
     </table>
 
     <a href="{{ path('app_user_new') }}">Create new</a>
+{% endif %}
 {% endblock %}

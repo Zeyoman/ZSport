@@ -3,6 +3,7 @@
 {% block title %}Rapport index{% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
     <h1>Rapport index</h1>
 
     <table class="table">
@@ -34,4 +35,5 @@
     </table>
 
     <a href="{{ path('app_rapport_new') }}">Create new</a>
+{% endif %}
 {% endblock %}

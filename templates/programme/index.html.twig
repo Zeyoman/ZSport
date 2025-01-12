@@ -3,6 +3,7 @@
 {% block title %}Programme index{% endblock %}
 
 {% block body %}
+{% if is_granted('ROLE_ADMIN') %}
     <h1>Programme index</h1>
     {# {% include 'parts/programme/programme-card.html.twig' %} #}
     <table class="table">
@@ -36,4 +37,5 @@
     </table>
 
     <a href="{{ path('app_programme_new') }}">Create new</a>
+{% endif %}
 {% endblock %}
