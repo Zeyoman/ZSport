@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\AbonnementRepository;
 use App\Repository\VideoRepository;
+use App\Repository\ProgrammeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'Homepage')]
-    public function index(AbonnementRepository $abonnementRepository, VideoRepository $videoRepository): Response
+    public function index(AbonnementRepository $abonnementRepository, VideoRepository $videoRepository, ProgrammeRepository $programmeRepository): Response
     {
         /** @var User|null $user */
         $user = $this->getUser();
@@ -22,11 +23,14 @@ class HomeController extends AbstractController
 
         $videos = $videoRepository->findAll();
 
+        $programmes = $programmeRepository->findAll();
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'abonnements' => $abonnements,
             'abonnementUser' => $abonnementUser,
-            'videos' => $videos
+            'videos' => $videos,
+            'programmes' => $programmes,
         ]);
     }
 }

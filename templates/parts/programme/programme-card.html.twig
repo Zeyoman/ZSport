@@ -1,11 +1,49 @@
 
-{% for programme in programmes %}
-    <li>
-        <strong>{{ programme.title }}</strong> - {{ programme.description }}
+<div class="bg-white pb-24 pt-12 sm:pb-32 sm:pt-12">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto text-center lg:mx-0">
+      <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">Nos programmes</h2>
+      <p class="mt-6 text-lg/8 text-gray-600">Découvrez nos programmes variés, adaptés à tous les niveaux, pour vous accompagner dans votre parcours sportif.</p>
+    </div>
+    <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+    {% for programme in programmes %}
+      <li>
+        <a href="{{ path('app_programme_show', {'id': programme.id}) }}">
+            <img class="aspect-3/2 w-full rounded-2xl object-cover h-56" src="uploads/image/{{programme.image}}" alt="image {{programme.title}}">
+            <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-gray-900">{{programme.title}}</h3>
+            <p class="text-base/7 text-gray-600">{{programme.description}}</p>
+            <ul role="list" class="mt-1 flex gap-x-6">
+                <li>
+                    {% if programme.level.value == 'Débutant' %}
+                    <span class="inline-flex items-center rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700">{{programme.level.value}}</span>
+                    {% elseif programme.level.value == 'Intermédiare' %}
+                    <span class="inline-flex items-center rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800">{{programme.level.value}}</span>
+                    {% elseif programme.level.value == "Avancé" %}
+                    <span class="inline-flex items-center rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700">{{programme.level.value}}</span>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if programme.theme.value == 'Haut du corps' %}
+                    <span class="inline-flex items-center rounded-md bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700">{{programme.theme.value}}</span>
+                    {% elseif programme.theme.value == 'Bas du corps' %}
+                    <span class="inline-flex items-center rounded-md bg-pink-100 px-2 py-1 text-xs font-medium text-pink-700">{{programme.theme.value}}</span>
+                    {% elseif programme.theme.value == 'Corps complet' %}
+                    <span class="inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">{{programme.theme.value}}</span>
+                    {% elseif programme.theme.value == 'Cardio' %}
+                    <span class="inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">{{programme.theme.value}}</span>
+                    {% elseif programme.theme.value == 'Hit' %}
+                    <span class="inline-flex items-center rounded-md bg-purple-100 px-2 py-1 text-xs font-medium text-purple-700">{{programme.theme.value}}</span>
+                    {% endif %}
+                </li>
+            </ul>
+        </a>
     </li>
-{% else %}
-    <li>Aucune vidéo associée à ce programme.</li>
-{% endfor %}
+    {% else %}
+        <li>Aucun programme.</li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
 {# {% for video in videos %}
     <li value="video-{{video.id}}">
         <strong>{{ video.title }}</strong> - {{ video.level.value }}

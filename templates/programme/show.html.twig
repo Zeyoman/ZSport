@@ -23,6 +23,18 @@
                 <th>Level</th>
                 <td>{{ programme.level.value }}</td>
             </tr>
+            <tr>
+                <th>Image</th>
+                <img src="{{ asset('uploads/image/' ~ programme.image) }}" alt="{{ programme.title }}" />
+                <td>{{ programme.image }}</td>
+            </tr>
+            {% for video in programme.videoId %}
+                <div>
+                    <strong>{{ video.title }}</strong><br>
+                </div>
+            {% else %}
+                <em>Aucune vidéo associée</em>
+            {% endfor %}
         </tbody>
     </table>
 

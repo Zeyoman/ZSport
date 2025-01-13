@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\ProgrammeTheme;
 use App\Enum\VideoLevel;
 use App\Repository\ProgrammeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,6 +32,12 @@ class Programme
      */
     #[ORM\ManyToMany(targetEntity: Video::class, inversedBy: 'programmes')]
     private Collection $videoId;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(nullable: true, enumType: ProgrammeTheme::class)]
+    private ?ProgrammeTheme $Theme = null;
 
     public function __construct()
     {
@@ -98,6 +105,30 @@ class Programme
     public function removeVideoId(Video $videoId): static
     {
         $this->videoId->removeElement($videoId);
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getTheme(): ?ProgrammeTheme
+    {
+        return $this->Theme;
+    }
+
+    public function setTheme(?ProgrammeTheme $Theme): static
+    {
+        $this->Theme = $Theme;
 
         return $this;
     }

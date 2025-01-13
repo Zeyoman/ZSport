@@ -13,6 +13,7 @@
                 <th>Title</th>
                 <th>Description</th>
                 <th>Level</th>
+                <th>Image</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,6 +24,8 @@
                 <td>{{ programme.title }}</td>
                 <td>{{ programme.description }}</td>
                 <td>{{ programme.level.value }}</td>
+                <td>{{ programme.theme.value|default('') }}</td>
+                <td>{{ programme.image }}</td>
                 <td>
                     <a href="{{ path('app_programme_show', {'id': programme.id}) }}">show</a>
                     <a href="{{ path('app_programme_edit', {'id': programme.id}) }}">edit</a>

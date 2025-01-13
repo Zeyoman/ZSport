@@ -100,6 +100,25 @@ final class VideoController extends AbstractController
                 $video->setFichierVideo($newFilename);
             }
 
+            $fichierImage = $form->get('image')->getData();
+
+            if ($fichierImage) {
+                $originalImageFilename = pathinfo($fichierImage->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeImageFilename = $slugger->slug($originalImageFilename);
+                $newImageFilename = $safeImageFilename.'-'.uniqid().'.'.$fichierImage->guessExtension();
+
+                try {
+                    $fichierImage->move(
+                        $this->getParameter('image_upload_directory'),
+                        $newImageFilename
+                    );
+                } catch (FileException $e) {
+
+                }
+
+                $video->setImage($newImageFilename);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_video_index', [], Response::HTTP_SEE_OTHER);

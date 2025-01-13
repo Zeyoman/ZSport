@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Programme;
 use App\Entity\Video;
 use App\Enum\VideoLevel;
+use App\Enum\ProgrammeTheme;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +20,19 @@ class ProgrammeType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
+            ->add('theme', EnumType::class, [
+                'class' => ProgrammeTheme::class,
+                'label' => 'Thème',
+                'placeholder' => 'Sélectionnez un thème',
+                'choice_label' => function (ProgrammeTheme $theme) {
+                    return $theme->value;
+                },
+            ])
+            ->add('image', FileType::class, [
+                'label' => 'Image',
+                'mapped' => false,
+                'required' => false,
+            ])
             ->add('level', EnumType::class, [
                 'class' => VideoLevel::class,
                 'label' => 'Niveau',
