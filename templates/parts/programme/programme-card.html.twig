@@ -12,7 +12,7 @@
             <img class="aspect-3/2 w-full rounded-2xl object-cover h-56" src="uploads/image/{{programme.image}}" alt="image {{programme.title}}">
             <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-gray-900">{{programme.title}}</h3>
             <p class="text-base/7 text-gray-600">{{programme.description}}</p>
-            <ul role="list" class="mt-1 flex gap-x-6">
+            <ul role="list" class="mt-1 flex gap-x-4">
                 <li>
                     {% if programme.level.value == 'Débutant' %}
                     <span class="inline-flex items-center rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-700">{{programme.level.value}}</span>
