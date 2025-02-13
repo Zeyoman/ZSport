@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\AbonnementRepository;
 use App\Repository\VideoRepository;
 use App\Repository\ProgrammeRepository;
+use App\Enum\ProgrammeTheme;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -25,12 +26,15 @@ class HomeController extends AbstractController
 
         $programmes = $programmeRepository->findAll();
 
+        $themes = ProgrammeTheme::cases();
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'abonnements' => $abonnements,
             'abonnementUser' => $abonnementUser,
             'videos' => $videos,
             'programmes' => $programmes,
+            'themes' => $themes
         ]);
     }
 }

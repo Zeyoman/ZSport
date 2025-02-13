@@ -7,6 +7,7 @@ use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: VideoRepository::class)]
 class Video
@@ -19,7 +20,7 @@ class Video
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
@@ -81,6 +82,9 @@ class Video
      */
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'videoEnregistrer')]
     private Collection $users;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $Recommended = null;
 
     public function __construct()
     {
@@ -384,6 +388,18 @@ class Video
         if ($this->users->removeElement($user)) {
             $user->removeVideoEnregistrer($this);
         }
+
+        return $this;
+    }
+
+    public function isRecommended(): ?bool
+    {
+        return $this->Recommended;
+    }
+
+    public function setRecommended(?bool $Recommended): static
+    {
+        $this->Recommended = $Recommended;
 
         return $this;
     }

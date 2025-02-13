@@ -1,0 +1,13 @@
+{% if video.noteGlobal == 1 %}
+<span class="inline-flex items-center rounded-full bg-brown-100 px-2 py-1 text-xs font-medium text-brown-800">{{video.noteGlobal}}</span>
+{% elseif video.noteGlobal == 2 %}
+<span class="inline-flex items-center rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-800">{{video.noteGlobal}}</span>
+{% elseif video.noteGlobal == 3 %}
+<span class="inline-flex items-center rounded-full bg-orange-100 px-2 py-1 text-xs font-medium text-orange-800">{{video.noteGlobal}}</span>
+{% elseif video.noteGlobal == 4 %}
+<span class="inline-flex items-center rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800">{{video.noteGlobal}}</span>
+{% elseif video.noteGlobal == 5 %}
+<span class="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">{{video.noteGlobal}}</span>
+{% else %}
+<span class="inline-flex items-center rounded-full bg-grey-100 px-2 py-1 text-xs font-medium text-grey-800">{{video.noteGlobal}}</span>
+{% endif %}

@@ -8,7 +8,7 @@ use App\Entity\Programme;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Enum\VideoLevel;
-use CodeIgniter\Files\File;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -43,24 +43,32 @@ class VideoType extends AbstractType
                 'label' => 'Niveau de la vidéo',
             ])
             ->add('view')
+            ->add('recommended', CheckboxType::class, [
+                'label'    => 'Recommandée',
+                'required' => false,
+            ])
             ->add('historique', EntityType::class, [
                 'class' => Historique::class,
                 'choice_label' => 'id',
+                'required' => false,
             ])
             ->add('favoris', EntityType::class, [
                 'class' => Favoris::class,
                 'choice_label' => 'id',
                 'multiple' => true,
+                'required' => false,
             ])
             ->add('programmes', EntityType::class, [
                 'class' => Programme::class,
                 'choice_label' => 'id',
                 'multiple' => true,
+                'required' => false,
             ])
             ->add('users', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',
                 'multiple' => true,
+                'required' => false,
             ])
         ;
     }

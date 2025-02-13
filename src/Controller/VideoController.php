@@ -6,6 +6,7 @@ use App\Entity\Video;
 use App\Entity\User;
 use App\Form\VideoType;
 use App\Repository\VideoRepository;
+use App\Enum\ProgrammeTheme;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,8 +21,18 @@ final class VideoController extends AbstractController
     #[Route(name: 'app_video_index', methods: ['GET'])]
     public function index(VideoRepository $videoRepository): Response
     {
+        $allVideos = $videoRepository->findAll();
+
+        $recommendedVideos = array_filter($allVideos, function($video) {
+            return $video->isRecommended(); // ou $video->getRecommended() selon votre getter
+        });
+
+        $themes = ProgrammeTheme::cases();
+        
         return $this->render('video/index.html.twig', [
-            'videos' => $videoRepository->findAll(),
+            'videos' => $allVideos,
+            'topVideos' => $recommendedVideos,
+            'themes' => $themes
         ]);
     }
 
@@ -66,9 +77,17 @@ final class VideoController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_video_show', methods: ['GET'])]
-    public function show(Video $video): Response
+    public function show(Video $video, VideoRepository $videoRepository): Response
     {
+
+        // Récupérer les vidéos ayant le même thème que la vidéo actuelle
+        $videosWithSameTheme = $videoRepository->findVideosWithSameTheme(
+            $video->getTheme(),
+            $video->getId()
+        );
+
         return $this->render('video/show.html.twig', [
+            'videoSame' => $videosWithSameTheme,
             'video' => $video,
         ]);
     }

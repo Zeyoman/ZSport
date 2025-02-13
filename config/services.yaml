@@ -6,6 +6,7 @@
 parameters:
     video_upload_directory: '%kernel.project_dir%/public/uploads/video'
     image_upload_directory: '%kernel.project_dir%/public/uploads/image'
+    openai_api_key: '%env(OPENAI_API_KEY)%'
 
 services:
     # default configuration for services in *this* file

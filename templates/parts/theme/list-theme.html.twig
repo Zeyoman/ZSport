@@ -1,0 +1,12 @@
+<div class="flex mx-auto max-w-7xl px-6 gap-5 lg:px-8">
+  {% for theme in themes %}
+  <div class="rounded-lg shadow-lg w-40">
+    <div class="text-center mb-6">
+      <span class="material-symbols-outlined text-7xl">favorite</span>
+    </div>
+    <div class="">
+      <h2 class="text-center text-xl font-semibold mb-2">{{ theme.value }}</h2>
+    </div>
+  </div>
+  {% endfor %}
+</div>
